@@ -12,7 +12,7 @@ def chat_with_bot(user_input):
     """Send user input to OpenAI and return the response"""
     try:
         response = client.responses.create(
-            model="gpt-4o",
+            model="gpt-4.1",
             input=user_input
         )
         return response.output_text
