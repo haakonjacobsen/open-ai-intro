@@ -15,7 +15,7 @@ def chat_with_bot(user_input):
             model="gpt-4.1",
             input=user_input
         )
-        return response.output_text
+        return response
     except Exception as e:
         return f"Error: {str(e)}"
 
@@ -26,7 +26,7 @@ def main():
     
     while True:
         # 1. Get user input
-        user_input = input("🫵 You: ").strip()
+        user_input = input("🫵 User: ").strip()
         
         # 2. Check if user wants to quit
         if user_input.lower() in ['quit', 'exit', 'bye']:
@@ -35,7 +35,7 @@ def main():
         
         # 3. Get bot response
         bot_response = chat_with_bot(user_input)
-        print("🤖 Bot:", bot_response)
+        print("🤖 Assistant:", bot_response.output_text)
 
 if __name__ == "__main__":
     main()
