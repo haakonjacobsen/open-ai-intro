@@ -2,7 +2,11 @@
 
 ## How to Run
 
-1. Create a virtual environment:
+1. Create a virtual environment in the `2-functions` folder:
+
+   ```bash
+   cd 2-functions
+   ```
 
    ```bash
    python -m venv venv
@@ -34,7 +38,7 @@
 
 5. Run the chatbot:
    ```bash
-   python chatbot.py
+   python assistant.py
    ```
    Type 'quit', 'exit', or 'bye' to stop the chatbot.
 
@@ -66,3 +70,28 @@ Transform your assistant from a knowledge time capsule into a current-events exp
 **Resources:** [OpenAI Tools Guide - Web Search](https://platform.openai.com/docs/guides/tools?api-mode=responses&tool-type=web-search)
 
 **Hint:** Look for the `#TODO: Add assistant tools` comment in `assistant.py` - that's where you'll add the tools parameter!
+
+### Task 2: Show Sources from Web Search
+
+Your chatbot searches the web, but users can't see where the information comes from. Let's add the sources to the assistant's response for transparency! 🔍
+
+**Your Mission:**
+Append the sources that the AI consulted to the assistant's response text, so users know where their information came from.
+
+**Steps:**
+
+1. Add `include=["web_search_call.action.sources"]` to your API call to get source data [(as described in the docs)](https://platform.openai.com/docs/guides/tools-web-search#sources)
+2. Extract sources from `response.output` where `type == "web_search_call"`
+3. Append the sources to the assistant's message before displaying it
+
+**Example Output:**
+
+```
+🤖 Assistant: The weather in Paris is currently 15°C with light rain...
+...
+📚 Sources: weather.com, bbc.com, accuweather.com
+```
+
+**Resources:** [OpenAI Web Search - Sources](https://platform.openai.com/docs/guides/tools-web-search#sources)
+
+**Hint:** You need to tell the API to include sources data, then extract domain names from the source URLs for clean display!
