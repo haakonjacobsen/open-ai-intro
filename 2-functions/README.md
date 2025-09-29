@@ -95,3 +95,78 @@ Append the sources that the AI consulted to the assistant's response text, so us
 **Resources:** [OpenAI Web Search - Sources](https://platform.openai.com/docs/guides/tools-web-search#sources)
 
 **Hint:** You need to tell the API to include sources data, then extract domain names from the source URLs for clean display!
+
+### Task 3: Add Custom Function Calling - Send Slack Messages
+
+Now it's time to go beyond built-in tools and create your own custom functions! Let's give your assistant the ability to send messages to Slack using OpenAI's function calling capabilities. 💬
+
+**Your Mission:**
+Enable your chatbot to send messages to Slack by implementing custom function calling with the `send_slack_message` function that's already been created for you in the `tools/` folder.
+
+**The Power of Custom Functions:**
+Transform your assistant from just a conversational AI into an action-taking assistant that can interact with external services.
+
+**Steps:**
+
+1. **Import the Slack function** at the top of `assistant.py`:
+
+   ```python
+   from tools.send_slack_message import send_slack_message
+   ```
+
+2. **Define your function schema** - Add this function definition to your tools array:
+
+   ```python
+   {
+       "type": "function",
+       "name": "send_slack_message",
+       "description": "Send a message to a Slack channel via webhook",
+       "parameters": {
+           "type": "object",
+           "properties": {
+               "message": {
+                   "type": "string",
+                   "description": "The message to send to Slack"
+               }
+           },
+           "required": ["message"],
+           "additionalProperties": False,
+       },
+       "strict": True,
+   }
+   ```
+
+3. **Handle function calls** - When the model wants to call your function, you need to:
+
+   - for each item in response.output, check if the item has the `type == "function_call"`
+   - if so, add the item to the message history and call the function by extracting the function `name` and `arguments`
+   - a tip here is to ceate a lookup table that maps the name to the actual function
+   - call your actual function with the `arguments` you got (remember to parse them to a dict)
+   - add the ouput of the function to the message history, and ask the model for a new response with the function results we have added
+   - do this until we no longer get function responses, then just return the response
+
+**Test Ideas:**
+
+- "Send a message to Slack saying 'Hello from OpenAI Assistant!'"
+- "Notify the team about something you can google (using the web search tool)"
+- "Send a Slack message with today's weather summary"
+
+**Example Output:**
+
+```
+
+🫵 User: Send a message to Slack saying "Meeting starts in 5 minutes!"
+🤖 Assistant: I've sent the message to Slack successfully: "Meeting starts in 5 minutes!"
+
+```
+
+**Resources:**
+
+- [OpenAI Function Calling Guide](https://platform.openai.com/docs/guides/function-calling)
+- [OpenAI Tools Guide - Function Calling](https://platform.openai.com/docs/guides/tools?tool-type=function-calling)
+
+**Hints:**
+
+- Look at the existing `send_slack_message.py` in the `tools/` folder to understand the function signature
+- You'll need to handle the function call response and execute the actual function when the model requests it
+- Don't forget to add the function result back to the conversation flow!
