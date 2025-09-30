@@ -170,3 +170,19 @@ Transform your assistant from just a conversational AI into an action-taking ass
 - Look at the existing `send_slack_message.py` in the `tools/` folder to understand the function signature
 - You'll need to handle the function call response and execute the actual function when the model requests it
 - Don't forget to add the function result back to the conversation flow!
+
+### Task 4: Create Your Own Custom Function
+
+Now it's your turn to be creative! 🚀
+
+**Your Mission:**
+Design and implement your own custom function that the assistant can call. Think about what would be useful - APIs that would be fun to hook up. It could be nice to ask the user for permission in the chat before running functions.
+
+**Steps:**
+
+1. Create a new Python file in the `tools/` folder
+2. Define your function with proper parameters and return values
+3. Add the function schema to your tools array
+4. Test it with your assistant
+
+**Ideas:** Calculator, todo list manager, random joke generator, unit converter, or anything you can imagine!
