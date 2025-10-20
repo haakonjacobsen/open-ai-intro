@@ -15,6 +15,6 @@ def create_embedding(text: str) -> list[float]:
 if __name__ == "__main__":
     # Test the embedding function
     test_text = "Politiet stanset en bil for fartskontroll på Hamar"
-    embedding = create_embedding(test_text)
+    embedding, response = create_embedding(test_text)
     print(f"Embedding length: {len(embedding)}")
     print(f"First 5 values: {embedding[:5]}")
