@@ -232,8 +232,7 @@ Complete the `semantic_search()` function in `db.py`.
    # Test with: "Hva skjedde i Hamar sentrum?"
    results = semantic_search("Hva skjedde i Hamar sentrum?")
    ```
-
-**Success Check:** Your search finds relevant documents even with different words than the original text!
+   **Hint:** Check the (MongoDB docs for semantic searching)[https://www.mongodb.com/docs/atlas/atlas-vector-search/tutorials/vector-search-tutorial/]
 
 ### Task 5: Connect Search to Your AI Assistant
 
@@ -250,25 +249,25 @@ Add the semantic search function to your AI assistant so it can find relevant po
 2. **Update the Tool Configuration**
    Replace the existing tool with:
 
-   ```python
-   {
-       "type": "function",
-       "name": "semantic_search",
-       "description": "Search through Norwegian police logs to find relevant incidents, crimes, or events. Use this when users ask about specific locations, types of incidents, or want information from police reports.",
-       "parameters": {
-           "type": "object",
-           "properties": {
-               "query": {
-                   "type": "string",
-                   "description": "The search query in Norwegian (e.g., 'trafikkulykker i Oslo', 'innbrudd i Gjøvik', 'Brann på Hamar')"
-               }
-           },
-           "required": ["query"],
-           "additionalProperties": False,
-       },
-       "strict": True,
-   }
-   ```
+```python
+{
+    "type": "function",
+    "name": "semantic_search",
+    "description": "Search through Norwegian police logs to find relevant incidents, crimes, or events. Use this when users ask about specific locations, types of incidents, or want information from police reports.",
+    "parameters": {
+        "type": "object",
+        "properties": {
+            "query": {
+                "type": "string",
+                "description": "The search query in Norwegian (e.g., 'trafikkulykker i Oslo', 'innbrudd i Gjøvik', 'Brann på Hamar')"
+            }
+        },
+        "required": ["query"],
+        "additionalProperties": False,
+    },
+    "strict": True,
+}
+```
 
 3. **Update the Tool Lookup**
 
@@ -289,3 +288,7 @@ Add the semantic search function to your AI assistant so it can find relevant po
 ## Congratulations! 🎉
 
 This is a basic RAG solution with functions. RAG has many techniques and optimizations we can implement to make it even better, but you now understand the core concepts of Retrieval-Augmented Generation, and giving your AI Assistant the option to use it when it needs to!
+
+```
+
+```
