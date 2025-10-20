@@ -109,12 +109,9 @@ def main():
 
         # 4. Get assistant response
         bot_response = chat_with_bot(messsages)
-        print('BOT RESPONSE: ', bot_response)
         
         # 6. Show sources used in web search
-        response_type = bot_response.output[0].type
-        print('RESPONSE TYPE: ', response_type)
-        assistant_answer = bot_response.output[0].content
+        assistant_answer = bot_response.output[0].content[0].text
 
         # 5. Display the response
         print("🤖 Assistant:", assistant_answer)
