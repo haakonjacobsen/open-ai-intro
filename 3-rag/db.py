@@ -35,9 +35,6 @@ def _add_documents_from_json(file_path: str):
     """Helper function to add documents from a JSON file to the collection"""
     with open(file_path, 'r') as file:
         documents = json.load(file)
-    if collection.count_documents() > 0:
-        print("Documents already exist in the collection, skipping...")
-        return
     for document in documents:
         add_document(document)
     print(f"Documents added from {file_path}")
