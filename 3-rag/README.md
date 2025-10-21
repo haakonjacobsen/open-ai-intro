@@ -230,7 +230,7 @@ Complete the `semantic_search()` function in `db.py`.
 2. **Test Your Search**
    ```python
    # Test with: "Hva skjedde i Hamar sentrum?"
-   results = semantic_search("Hva skjedde i Hamar sentrum?")
+   results = semantic_search("Kan du gi meg noen trafikkulykker i Oslo")
    ```
    **Hint:** Check the (MongoDB docs for semantic searching)[https://www.mongodb.com/docs/atlas/atlas-vector-search/tutorials/vector-search-tutorial/]
 
