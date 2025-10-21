@@ -52,6 +52,6 @@ def _add_embeddings_to_documents():
 
 if __name__ == "__main__":
     input("You are about to add the politiloggen.json data to your db. Press Enter to continue or Ctrl+C to exit.")
-    #_add_documents_from_json('politiloggen.json')
-    _add_embeddings_to_documents()
+    _add_documents_from_json('politiloggen.json')
+    #_add_embeddings_to_documents()
 
