@@ -45,7 +45,7 @@ def _add_embeddings_to_documents():
     for document in documents:
         texts = document.get('messages', [])
         text = " ".join([item['text'] for item in texts])
-        embedding, _ = create_embedding(text)
+        embedding = create_embedding(text)
         doc = update_document(str(document['_id']), {'embedding': embedding})
         print(f"Document updated: {doc} with embedding length: {len(embedding)}")
         
