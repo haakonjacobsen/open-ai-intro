@@ -38,13 +38,7 @@ Instead of defining tools directly in your application code, MCP lets you host t
    uv sync
    ```
 
-   This will create a virtual environment and install the required packages.
-
-4. **Create a `.env` file** (needed for Task 4):
-
-   ```
-   OPENAI_API_KEY=your_openai_api_key_here
-   ```
+   This will create a virtual environment and install the MCP SDK.
 
 ## Workshop Tasks
 
@@ -54,12 +48,6 @@ Time to see MCP in action! We'll run a simple calculator server and test it. �
 
 **Your Mission:**
 Run the MCP server and test it with the MCP Inspector.
-
-**What You'll Learn:**
-
-- How to structure an MCP server
-- How to define tools that AI models can call
-- How to test your server with MCP Inspector
 
 **Steps:**
 
@@ -149,93 +137,8 @@ Add some more tools to your MCP server, e.g. reuse tools from previous workshops
 
 ### Task 3: Connect to Cursor
 
-Now try to connect your MCP server to an AI Application like Cursor, Copilot, Claude etc.
+Now try to connect your MCP server to an AI Application like Cursor, Copilot, Calaude etc.
 
-The type of server we've created is of type Streamable HTTP, which means it's available from a remote URL, in our case `http://127.0.0.1:8000/mcp`.
+The type of server have created is of type Streamable HTTP, which means its available from a remote url, in our case `http://127.0.0.1:8000` for now.
 
-### Task 4: Create an AI Agent with Pydantic AI
-
-Time to build an AI agent that uses your MCP tools! We'll use Pydantic AI to create an agent that connects to your MCP server. 🤖
-
-**What is Pydantic AI?**
-Pydantic AI is a Python framework for building production-grade AI agents. It supports MCP out of the box, making it easy to connect agents to MCP servers.
-
-**Steps:**
-
-1. **Create a `.env` file** with your OpenAI API key:
-
-   ```
-   OPENAI_API_KEY=your_api_key_here
-   ```
-
-2. **Update dependencies**:
-
-   ```bash
-   uv sync
-   ```
-
-3. **Examine the agent code**
-
-   Open `agent.py` and notice how it connects to the MCP server:
-
-```python
-from pydantic_ai import Agent
-from pydantic_ai.mcp import MCPServerStreamableHTTP
-
-# Connect to your local MCP server
-mcp_server = MCPServerStreamableHTTP('http://127.0.0.1:8000/mcp')
-
-# Create an AI agent with the MCP server tools
-agent = Agent(
-    'openai:gpt-4o',
-    toolsets=[mcp_server],
-    instructions='You are a helpful assistant with access to calculator tools.',
-)
-```
-
-**Key Points:**
-
-- `MCPServerStreamableHTTP` connects to your MCP server
-- `toolsets=[mcp_server]` gives the agent access to all your MCP tools
-- The agent automatically discovers and uses available tools
-
-4. **Run the agent**
-
-   Make sure your MCP server is running in one terminal:
-
-   ```bash
-   uv run main.py
-   ```
-
-   Then in another terminal, run the agent:
-
-   ```bash
-   uv run agent.py
-   ```
-
-**Success Check:**
-
-- ✅ Agent connects to MCP server
-- ✅ Agent uses your tools to answer questions
-- ✅ You see the agent's responses
-
-**Try Your Own Queries:**
-Modify the queries in `agent.py` to test your tools!
-
-**Learn More:** [Pydantic AI MCP Documentation](https://ai.pydantic.dev/integrations/mcp/)
-
-## Congratulations! 🎉
-
-You've built a complete MCP workflow:
-
-- ✅ Created an MCP server with tools
-- ✅ Connected it to AI applications
-- ✅ Built an AI agent that uses MCP tools
-
-**What's Next?**
-
-- Add more complex tools (database queries, API calls)
-- Connect your RAG tools from workshop 3
-- Explore Pydantic AI's other features
-
-Learn more: [modelcontextprotocol.io](https://modelcontextprotocol.io/) | [ai.pydantic.dev](https://ai.pydantic.dev/)
+### Task 4:
