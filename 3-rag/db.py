@@ -26,9 +26,48 @@ def update_document(document_id: str, fields_to_update: dict):
     return result
 
 def semantic_search(query: str, limit: int = 5):
-    """Search for relevant documents using vector search"""
-    pass
-    # TODO: Implement
+    """Search for relevant documents using vector similarity"""
+    # Create embedding for the question
+    question_embedding, _ = create_embedding(query)
+    if not question_embedding:
+        print("Error creating embedding for question")
+        return []
+    
+    # MongoDB vector search pipeline
+    pipeline = [
+        {
+            "$vectorSearch": {
+                "index": "vector_index",
+                "path": "embedding",
+                "queryVector": question_embedding,
+                "numCandidates": 100,
+                "limit": limit
+            }
+        },
+        {
+            "$project": {
+                "_id": 1,
+                "messages": 1,
+                "score": {"$meta": "vectorSearchScore"}
+            }
+        }
+    ]
+    
+    # Execute search
+    results = list(collection.aggregate(pipeline))
+    
+    # Format results
+    formatted_results = []
+    for doc in results:
+        content = '\n\n'.join([item['text'] for item in doc['messages']])
+        formatted_results.append({
+            'content': content,
+            'id': str(doc['_id']),
+            'score': doc.get('score', 0.0)
+        })
+    
+    return formatted_results
+
 
 # HELPER FUNCTIONS
 def _add_documents_from_json(file_path: str):
@@ -53,5 +92,5 @@ def _add_embeddings_to_documents():
 if __name__ == "__main__":
     input("You are about to add the politiloggen.json data to your db. Press Enter to continue or Ctrl+C to exit.")
     _add_documents_from_json('politiloggen.json')
-    #_add_embeddings_to_documents()
+    _add_embeddings_to_documents()
 

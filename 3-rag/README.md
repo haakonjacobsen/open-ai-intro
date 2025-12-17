@@ -159,10 +159,10 @@ Embeddings are lists of numbers that represent the meaning of text. Similar text
    python3 embedding.py
    ```
 
-**Success Check:** You should see:
+**Success Check:** You should see something like this:
 
 - Embedding length: 1536
-- First 5 values: [0.123, -0.456, 0.789, ...]
+- First 5 values: [0.1, 0.2, 0.3, ...]
 
 **Resources:** [OpenAI Embeddings Guide](https://platform.openai.com/docs/guides/embeddings)
 

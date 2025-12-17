@@ -3,6 +3,7 @@ import os
 from openai import NotGiven, OpenAI
 from dotenv import load_dotenv
 from openai.types.responses import ResponseInputParam
+from search_solution import semantic_search
 
 # Load environment variables from .env file
 load_dotenv()
@@ -10,29 +11,25 @@ load_dotenv()
 # Initialize OpenAI client
 client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
 
-def print_to_console(args: dict):
-    """Print a message to the console"""
-    print(args['message'])
-    return f"Message {args['message']} printed to console"
 
 tool_lookup = {
-    "print_to_console": print_to_console
+    "semantic_search": semantic_search
 }
 
 tools = [
     {
         "type": "function",
-        "name": "print_to_console",
-        "description": "Print a message to the console",
+        "name": "semantic_search",
+        "description": "Search through Norwegian police logs to find relevant incidents, crimes, or events. Use this when users ask about specific locations, types of incidents, or want information from police reports.",
         "parameters": {
             "type": "object",
             "properties": {
-                "message": {
+                "query": {
                     "type": "string",
-                    "description": "The message to print to the console"
+                    "description": "The search query in Norwegian (e.g., 'trafikkulykker i Oslo', 'innbrudd i Gjøvik', 'Brann på Hamar')"
                 }
             },
-            "required": ["message"],
+            "required": ["query"],
             "additionalProperties": False,
         },
         "strict": True,
@@ -71,14 +68,14 @@ def chat_with_bot(messages: str | ResponseInputParam | NotGiven):
                         })
                         iterations += 1
                     except Exception as e:
-                        return f"Error: {str(e)}"
+                        raise e
                 else:
                     return response
             if iterations >= max_iterations:
-                return 'Max iterations reached, please try again.'
+                raise Exception('Max iterations reached, please try again.')
         return response
     except Exception as e:
-        return 'I got an error: ' + str(e)
+        raise e
 
 def main():
     """Main chatbot loop"""
