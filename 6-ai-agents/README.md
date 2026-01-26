@@ -102,3 +102,14 @@ async with agent.run_stream(user_input, deps=deps) as response:
     async for text in response.stream_text():
         print(text, end="", flush=True)
 ```
+
+## Task 6: Explore More Features
+
+Explore additional PydanticAI features on your own:
+
+- **Conversation History**: [Docs](https://ai.pydantic.dev/message-history/) - Keep context across multiple messages
+- **Image Inputs**: [Docs](https://ai.pydantic.dev/input/#extracting-structured-data-from-images) - Send images to the agent
+- **Thinking/Reasoning**: [Docs](https://ai.pydantic.dev/thinking/) - Enable model reasoning with `ModelSettings(thinking=...)`
+- **Multi-Agent-Applications**: [Docs](https://ai.pydantic.dev/multi-agent-applications/)
+
+Pick one and try to integrate it into your agent!
