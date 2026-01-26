@@ -76,12 +76,29 @@ Add a tool that looks up celebrity data from SNL (Store norske leksikon).
 
 API docs: https://snl.no/api/v1/search?query=Taylor%20Swift
 
-1. Create a `lookup_celebrity(name)` tool that fetches data from SNL
+1. Create a `lookup_celebrity(name)` tool that fetches data from SNL, or use the functions in `snl.py`.
 2. Update the system prompt to instruct the agent to **only** write verified data
 3. The agent should refuse to write user-provided data without verification
 
-Vibe code this! Explore the SNL API and see what data you can extract.
+Try to vibe code this! Explore the SNL API and see what data you can extract.
 
 Test with:
+
 - "Add Taylor Swift to the database" - should lookup and verify first
 - "Make Taylor Swift 50 years old" - should refuse (can't verify fake data)
+
+## Task 5: Streaming Output
+
+[Docs: Streaming](https://ai.pydantic.dev/agents/#streaming-events-and-final-output)
+
+Stream the agent's response to the terminal as it's generated.
+
+1. Change `main()` to `async def main()` and use `asyncio.run(main())`
+2. Use `agent.run_stream()` instead of `agent.run_sync()`
+3. Stream text with `async for text in response.stream_text()`
+
+```python
+async with agent.run_stream(user_input, deps=deps) as response:
+    async for text in response.stream_text():
+        print(text, end="", flush=True)
+```
