@@ -1,0 +1,27 @@
+{
+  "0": {
+    "name": "Taylor Swift",
+    "profession": "Singer",
+    "birthdate": "1989-12-13"
+  },
+  "1": {
+    "name": "Tom Hanks",
+    "profession": "Actor",
+    "birthdate": "1956-07-09"
+  },
+  "2": {
+    "name": "Beyoncé",
+    "profession": "Singer",
+    "birthdate": "1981-09-04"
+  },
+  "3": {
+    "name": "Leonardo DiCaprio",
+    "profession": "Actor",
+    "birthdate": "1974-11-11"
+  },
+  "4": {
+    "name": "Oprah Winfrey",
+    "profession": "TV Host",
+    "birthdate": "1954-01-29"
+  }
+}
