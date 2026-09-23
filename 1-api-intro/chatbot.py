@@ -1,63 +1,47 @@
-import os
-from openai import OpenAI
+import anthropic
 from dotenv import load_dotenv
 
 # Load environment variables from .env file
 load_dotenv()
 
-# Initialize OpenAI client
-client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
+# Initialize the Claude client. It reads ANTHROPIC_API_KEY from the environment.
+client = anthropic.Anthropic()
 
-def chat_with_bot(messages):
-    """Send user input to OpenAI and return the response"""
-    try:
-        response = client.responses.create(
-            model="gpt-4.1",
-            input=messages,
-        )
-        return response
-    except Exception as e:
-        return f"Error: {str(e)}"
+# The model we send our requests to
+MODEL = "claude-opus-5"
+
+
+def chat_with_bot(user_input):
+    """Send user input to Claude and return the response"""
+    response = client.messages.create(
+        model=MODEL,
+        max_tokens=4096,
+        messages=[{"role": "user", "content": user_input}],
+    )
+    return response
+
 
 def main():
     """Main chatbot loop"""
-    print("🤖 Simple OpenAI Chatbot")
+    print("🤖 Simple Claude Chatbot")
     print("Type 'bye' or 'quit' to stop chatting\n")
 
-    messsages = []
-    
     while True:
         # 1. Get user input
         user_input = input("🫵 User: ").strip()
-        image_url = input("🖼️ Image URL (optional): ").strip()
 
         # 2. Check if user wants to quit
-        if user_input.lower() in ['quit', 'exit', 'bye']:
+        if user_input.lower() in ["quit", "exit", "bye"]:
             print("👋 Goodbye!")
             break
 
-        if image_url:
-            messsages.append(
-            {
-                "role": "user",
-                "content": [
-                    {"type": "input_text", "text": user_input},
-                    {"type": "input_image", "image_url": image_url}
-                ]
-            })
-        else:
-            messsages.append({
-                "role": "user",
-                "content": user_input
-            })
-
         # 3. Get bot response
-        bot_response = chat_with_bot(messsages)
-        print("🤖 Assistant:", bot_response.output_text)
-        messsages.append({
-            "role": "assistant",
-            "content": bot_response.output_text
-        })
+        response = chat_with_bot(user_input)
+
+        # 4. The reply is a list of content blocks. Pick out the text blocks and print them.
+        assistant_text = "".join(block.text for block in response.content if block.type == "text")
+        print("🤖 Assistant:", assistant_text)
+
 
 if __name__ == "__main__":
     main()
