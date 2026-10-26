@@ -29,7 +29,7 @@ Instead of defining tools directly in your application code, MCP lets you host t
 2. **Navigate to the workshop folder**:
 
    ```bash
-   cd 4-mcp
+   cd 5-mcp
    ```
 
 3. **Install dependencies**:

@@ -2,10 +2,10 @@
 
 ## How to Run
 
-1. Create a virtual environment in the `3-rag` folder:
+1. Create a virtual environment in the `4-rag` folder:
 
    ```bash
-   cd 3-rag
+   cd 4-rag
    ```
 
    ```bash
